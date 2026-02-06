@@ -29,7 +29,6 @@ var rootCmd = &cobra.Command{
 			debug.Set(false)
 		}
 		debug.Printf("root: %v\n", root)
-		debug.Printf("config: %v\n", cfg)
 		if err == nil {
 			toolChain := strings.TrimSpace(cfg.Project.Toolchain)
 
@@ -51,6 +50,10 @@ func init() {
 }
 
 func Execute() {
+	// Add commands
+	rootCmd.AddCommand(NewInitCommand())
+
+	// Execute the root command
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
