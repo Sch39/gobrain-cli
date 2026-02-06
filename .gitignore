@@ -1,0 +1,37 @@
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.idea/
+.vscode/
+
+# Go modules/workspaces
+go.work
+vendor/
+
+# Builds & binaries
+bin/
+build/
+dist/
+*.exe
+*.dll
+*.test
+
+# Coverage & reports
+coverage/
+cover.out
+*.out
+
+# Logs
+*.log
+
+# Local tooling environment
+.gob/bin/
+
+# Environment files
+.env
+.env.*
+
+sandbox
+bin
