@@ -2,6 +2,7 @@ package config
 
 type Config struct {
 	Version    string              `mapstructure:"version"`
+	Debug      bool                `mapstructure:"debug"`
 	Project    Project             `mapstructure:"project"`
 	Meta       Meta                `mapstructure:"meta"`
 	Tools      []Tool              `mapstructure:"tools"`

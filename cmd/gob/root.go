@@ -1,14 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strings"
 
 	"github.com/sch39/gobrain-cli/internal/config"
+	"github.com/sch39/gobrain-cli/internal/debug"
 	"github.com/sch39/gobrain-cli/internal/project"
 	"github.com/spf13/cobra"
 )
+
+var debugFlag bool
 
 var rootCmd = &cobra.Command{
 	Use:   "gob",
@@ -20,8 +22,14 @@ var rootCmd = &cobra.Command{
 			root = r.Path
 		}
 		cfg, err := config.Load(root)
-		fmt.Printf("root: %v\n", root)
-		fmt.Printf("config: %v\n", cfg)
+
+		if debugFlag || (err == nil && cfg.Debug) {
+			debug.Set(true)
+		} else {
+			debug.Set(false)
+		}
+		debug.Printf("root: %v\n", root)
+		debug.Printf("config: %v\n", cfg)
 		if err == nil {
 			toolChain := strings.TrimSpace(cfg.Project.Toolchain)
 
@@ -32,10 +40,14 @@ var rootCmd = &cobra.Command{
 				}
 			}
 		} else {
-			fmt.Printf("error loading config: %v\n", err)
+			debug.Printf("error loading config: %v\n", err)
 		}
 		return nil
 	},
+}
+
+func init() {
+	rootCmd.PersistentFlags().BoolVar(&debugFlag, "debug", false, "Enable debug output")
 }
 
 func Execute() {
