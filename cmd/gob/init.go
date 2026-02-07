@@ -1,10 +1,15 @@
 package main
 
 import (
+	"fmt"
+	"os"
+
+	"github.com/AlecAivazis/survey/v2"
 	"github.com/sch39/gobrain-cli/internal/debug"
 	"github.com/sch39/gobrain-cli/internal/initcmd"
 	"github.com/sch39/gobrain-cli/internal/version"
 	"github.com/spf13/cobra"
+	mod "golang.org/x/mod/module"
 )
 
 func NewInitCommand() *cobra.Command {
@@ -17,11 +22,8 @@ func NewInitCommand() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			debug.Printf("init: %v\n", args)
 			// Logic to initialize the project
-			stableGoVersion, err := version.FetchStableRelease()
+			stableGoVersion := version.FetchStableRelease()
 			localGo := version.DetectLocalGo()
-			if err != nil {
-				return err
-			}
 			debug.Printf("Local Go version: %s\n", localGo)
 			debug.Printf("Stable Go Version: %s\n", stableGoVersion)
 			debug.Printf("Latest Stable Go Version: %s\n", stableGoVersion[0])
@@ -41,4 +43,33 @@ func NewInitCommand() *cobra.Command {
 	f.BoolVar(&opts.Force, "force", false, "Overwrite existing files")
 
 	return cmd
+}
+
+func validateEnv(force bool) error {
+	if !force {
+		for _, f := range []string{"gob.yaml", "gob.yml"} {
+			if _, err := os.Stat(f); err == nil {
+				return fmt.Errorf("file %s already exists", f)
+			}
+		}
+	}
+	return nil
+}
+
+func promptMissingInputs(opts *initcmd.Options, cmd *cobra.Command) error {
+	if opts.Name == "" {
+		survey.AskOne(&survey.Input{Message: "Project name:"}, &opts.Name, survey.WithValidator(survey.Required))
+	}
+
+	if opts.Module == "" {
+		survey.AskOne(&survey.Input{Message: "Module path:"}, &opts.Module, survey.WithValidator(func(val interface{}) error {
+			return mod.CheckPath(val.(string))
+		}))
+	}
+
+	if _, err := os.Stat("go.mod"); os.IsNotExist(err) && opts.Toolchain == "" {
+
+	}
+
+	return nil
 }
