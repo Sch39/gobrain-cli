@@ -3,6 +3,7 @@ package initcmd
 import (
 	"context"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -106,6 +107,9 @@ func PrepareFromGit(ctx context.Context, url, subpath, dst string) error {
 				return err
 			}
 		}
+		if !hasConfigFile(src) {
+			return errors.New("template must contain gob.yaml or gob.yml")
+		}
 		if err := copyDir(src, dst); err != nil {
 			return err
 		}
@@ -172,10 +176,23 @@ func PrepareFromGit(ctx context.Context, url, subpath, dst string) error {
 			return err
 		}
 	}
+	if !hasConfigFile(src) {
+		return errors.New("template must contain gob.yaml or gob.yml")
+	}
 	if err := copyDir(src, dst); err != nil {
 		return err
 	}
 	return MergeGitignoreFiles(dst, filepath.Join(src, ".gitignore"))
+}
+
+func hasConfigFile(root string) bool {
+	if _, err := os.Stat(filepath.Join(root, "gob.yaml")); err == nil {
+		return true
+	}
+	if _, err := os.Stat(filepath.Join(root, "gob.yml")); err == nil {
+		return true
+	}
+	return false
 }
 
 func LoadPresets() ([]presets.Preset, error) {

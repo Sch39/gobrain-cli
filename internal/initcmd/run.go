@@ -70,14 +70,14 @@ func Run(ctx context.Context, opts Options) error {
 		if err := PrepareFromGit(ctx, opts.Source, opts.Path, root); err != nil {
 			return err
 		}
+		if !configExists(root) {
+			return errors.New("template must contain gob.yaml or gob.yml")
+		}
 		if exists(filepath.Join(root, "go.mod")) {
 			return errors.New("Template cannot contain go.mod")
 		}
 		if err := HydratePlaceholders(root, opts.Name, opts.Module); err != nil {
 			return err
-		}
-		if !configExists(root) {
-			return errors.New("template must contain gob.yaml or gob.yml")
 		}
 		if cfg, err := config.Load(root); err == nil {
 			debug.Printf("init run: layout dirs=%d\n", len(cfg.Layout.Dirs))
