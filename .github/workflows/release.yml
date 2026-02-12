@@ -84,7 +84,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: powershell
         run: |
-          Compress-Archive dist/gob.exe dist/gob_windows_amd64.zip
+          Compress-Archive dist/gob.exe dist/gob_${{ matrix.goos }}_${{ matrix.goarch }}.zip
           Remove-Item dist/gob.exe
 
       # -------------------------

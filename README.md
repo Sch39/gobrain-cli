@@ -18,25 +18,44 @@ GoBrain adalah CLI berfokus pada proyek (project-scoped) untuk ekosistem Go. Tuj
 - Windows/Linux/macOS.
   
 ## Instalasi & Build
-- Download binary:
-  - Download dari [**Release Page**](https://github.com/Sch39/gobrain-cli-tool/releases) atau link **https://github.com/Sch39/gobrain-cli-tool/releases** sesuai dengan platform. 
-  - Extract file binary ke folder.
-  - Tambahkan ke environment PATH (misal: `C:\gobrain\bin`).
+### Instalasi Binary (Release)
+- **Windows**
+  - Download `gob_windows_amd64.zip` (Intel/AMD) atau `gob_windows_arm64.zip` (ARM).
+  - Extract lalu tambahkan ke PATH, contoh: `C:\gobrain\bin`.
+- **macOS**
+  - Download `gob_darwin_amd64.tar.gz` (Intel) atau `gob_darwin_arm64.tar.gz` (Apple Silicon).
+  - Extract dan pindahkan binary ke `/usr/local/bin` atau folder PATH lain.
+- **Linux**
+  - Download `gob_linux_amd64.tar.gz` atau `gob_linux_arm64.tar.gz`.
+  - Extract dan pindahkan binary ke `/usr/local/bin` atau folder PATH lain.
+  
+Semua paket tersedia di [**Release Page**](https://github.com/Sch39/gobrain-cli-tool/releases).
 
-- Build lokal:
+### Build Lokal
+#### macOS / Linux
   
 ```bash
 go build -trimpath -o bin/gob ./cmd/gob
-# Windows akan menghasilkan bin/gob.exe
 ```
-
+  
+#### Windows (PowerShell)
+```powershell
+go build -trimpath -o bin\gob.exe .\cmd\gob
+```
+  
+### Build dengan Makefile
+#### macOS / Linux
 - Build dengan Makefile:
   
 ```bash
+  make build
+```
+
+#### Windows (Git Bash / MSYS2)
+```bash
 make build
 ```
-  
-Binary hasil build berada di `./bin/gob` (atau `gob.exe` di Windows).
+
   
 ## Quick Start
 1) Inisialisasi proyek baru:
