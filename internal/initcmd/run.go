@@ -147,12 +147,14 @@ func Run(ctx context.Context, opts Options) error {
 			Module    string
 			Toolchain string
 			Source    string
+			Path      string
 		}
 		data := tmplData{
 			Name:      opts.Name,
 			Module:    opts.Module,
 			Toolchain: toolchain,
 			Source:    opts.Source,
+			Path:      opts.Path,
 		}
 		const gobTmpl = `version: "1.0.0"
 project:
@@ -161,7 +163,8 @@ project:
   toolchain: {{ .Toolchain }}
 meta:
   template_origin: {{ .Source }}
-  author: ""` + "\n"
+  author: ""
+  path: {{ .Path }}` + "\n"
 		t, err := template.New("gob").Parse(gobTmpl)
 		if err != nil {
 			return err
@@ -183,6 +186,7 @@ meta:
 		cfg.Project.Module = opts.Module
 		cfg.Project.Toolchain = toolchain
 		cfg.Meta.TemplateOrigin = opts.Source
+		cfg.Meta.Path = opts.Path
 		data, err := yaml.Marshal(cfg)
 		if err != nil {
 			return err

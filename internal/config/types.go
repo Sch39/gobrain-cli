@@ -21,6 +21,7 @@ type Project struct {
 type Meta struct {
 	TemplateOrigin string `mapstructure:"template_origin" yaml:"template_origin"`
 	Author         string `mapstructure:"author" yaml:"author"`
+	Path           string `mapstructure:"path" yaml:"path"`
 }
 
 type Tool struct {

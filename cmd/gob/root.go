@@ -53,6 +53,7 @@ func Execute() {
 	// Add commands
 	rootCmd.AddCommand(NewInitCommand())
 	rootCmd.AddCommand(NewMakeCommand())
+	rootCmd.AddCommand(NewExecCommand())
 
 	// Execute the root command
 	err := rootCmd.Execute()
