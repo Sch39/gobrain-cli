@@ -159,6 +159,7 @@ Penjelasan singkat:
 ## Catatan OS
 - Di Windows, `tools run` akan menambahkan `.exe` bila diperlukan saat menjalankan binary dari `.gob/bin`.
   
-## Status & Lisensi
-Tidak ada informasi lisensi yang disediakan pada repo ini. Tambahkan bagian lisensi sesuai kebutuhan proyek Anda.
+## Lisensi
+- Proyek ini dirilis di bawah **MIT License**.
+- Lihat file lisensi di [**LICENSE**](/gobrain/LICENSE) untuk detail lengkap.
   
