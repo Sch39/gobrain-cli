@@ -116,7 +116,7 @@ func runInitPrompts(opts *initcmd.Options, cmd *cobra.Command) error {
 		}
 	case "url":
 		if opts.Source == "" {
-			survey.AskOne(&survey.Input{Message: "Template URL/path:"}, &opts.Source, survey.WithValidator(survey.Required))
+			survey.AskOne(&survey.Input{Message: "Template URL:"}, &opts.Source, survey.WithValidator(survey.Required))
 			survey.AskOne(&survey.Input{Message: "Path inside repo (optional):", Help: "Leave blank for root; '.' or '/' clones from root"}, &opts.Path)
 		}
 	}

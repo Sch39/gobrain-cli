@@ -106,7 +106,10 @@ func PrepareFromGit(ctx context.Context, url, subpath, dst string) error {
 				return err
 			}
 		}
-		return copyDir(src, dst)
+		if err := copyDir(src, dst); err != nil {
+			return err
+		}
+		return MergeGitignoreFiles(dst, filepath.Join(src, ".gitignore"))
 	}
 	tmp, err := os.MkdirTemp("", "gob-tpl-")
 	if err != nil {
@@ -169,7 +172,10 @@ func PrepareFromGit(ctx context.Context, url, subpath, dst string) error {
 			return err
 		}
 	}
-	return copyDir(src, dst)
+	if err := copyDir(src, dst); err != nil {
+		return err
+	}
+	return MergeGitignoreFiles(dst, filepath.Join(src, ".gitignore"))
 }
 
 func LoadPresets() ([]presets.Preset, error) {

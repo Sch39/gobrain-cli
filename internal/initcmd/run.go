@@ -196,6 +196,9 @@ meta:
 			return err
 		}
 	}
+	if err := ensureSingleConfig(root); err != nil {
+		return err
+	}
 
 	fmt.Println("✔ GoBrain project initialized")
 	return nil
@@ -234,6 +237,17 @@ func existingConfigName(root string) string {
 		return configFileAltName
 	}
 	return ""
+}
+
+func ensureSingleConfig(root string) error {
+	yamlPath := filepath.Join(root, configFileName)
+	ymlPath := filepath.Join(root, configFileAltName)
+	yamlExists := exists(yamlPath)
+	ymlExists := exists(ymlPath)
+	if yamlExists && ymlExists {
+		return os.Remove(ymlPath)
+	}
+	return nil
 }
 
 func writeFile(path string, data []byte) error {
