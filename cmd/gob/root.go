@@ -55,6 +55,7 @@ func Execute() {
 	rootCmd.AddCommand(NewMakeCommand())
 	rootCmd.AddCommand(NewExecCommand())
 	rootCmd.AddCommand(NewScriptsCommand())
+	rootCmd.AddCommand(NewToolsCommand())
 
 	// Execute the root command
 	err := rootCmd.Execute()
