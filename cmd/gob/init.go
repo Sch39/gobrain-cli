@@ -1,8 +1,8 @@
 package main
 
 import (
+	"context"
 	"errors"
-	"fmt"
 	"os"
 	"regexp"
 	"strings"
@@ -25,17 +25,22 @@ func NewInitCommand() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			debug.Printf("init start")
 			if !opts.Force {
-				for _, f := range []string{"gob.yaml", "gob.yml"} {
-					if _, err := os.Stat(f); err == nil {
-						return fmt.Errorf("%s already exists: project already initialized", f)
-					}
+				if _, err := os.Stat("gob.yaml"); err == nil {
+					return errors.New("gob.yaml already exists")
+				}
+				if _, err := os.Stat("gob.yml"); err == nil {
+					return errors.New("gob.yml already exists")
 				}
 			}
 
-			// interactive prompts
 			if err := runInitPrompts(&opts, cmd); err != nil {
 				return err
 			}
+			debug.Printf("init options: name=%s module=%s sourceType=%s source=%s path=%s toolchain=%s force=%v\n", opts.Name, opts.Module, opts.SourceType, opts.Source, opts.Path, opts.Toolchain, opts.Force)
+			if err := initcmd.Run(context.Background(), opts); err != nil {
+				return err
+			}
+			_ = os.Setenv("GOTOOLCHAIN", "auto")
 			debug.Println("Project initialized!")
 			return nil
 		},
@@ -104,6 +109,7 @@ func runInitPrompts(opts *initcmd.Options, cmd *cobra.Command) error {
 			for _, p := range list {
 				if p.Name == chosen {
 					opts.Source = p.Source.Repo
+					opts.Path = p.Source.Path
 					break
 				}
 			}
@@ -111,6 +117,7 @@ func runInitPrompts(opts *initcmd.Options, cmd *cobra.Command) error {
 	case "url":
 		if opts.Source == "" {
 			survey.AskOne(&survey.Input{Message: "Template URL/path:"}, &opts.Source, survey.WithValidator(survey.Required))
+			survey.AskOne(&survey.Input{Message: "Path inside repo (optional):", Help: "Leave blank for root; '.' or '/' clones from root"}, &opts.Path)
 		}
 	}
 

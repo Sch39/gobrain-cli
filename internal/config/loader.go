@@ -21,7 +21,21 @@ func Load(dir string) (*Config, error) {
 	}
 
 	v := viper.New()
-	v.SetConfigFile(filepath.Join(dir, "gob.yaml"))
+	configPath := ""
+	for _, name := range []string{"gob.yaml", "gob.yml"} {
+		p := filepath.Join(dir, name)
+		if _, err := os.Stat(p); err == nil {
+			configPath = p
+			break
+		}
+	}
+	if configPath != "" {
+		v.SetConfigFile(configPath)
+	} else {
+		v.SetConfigName("gob")
+		v.SetConfigType("yaml")
+		v.AddConfigPath(dir)
+	}
 	v.SetEnvPrefix("GOB")
 	v.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
