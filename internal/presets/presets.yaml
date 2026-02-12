@@ -1,8 +1,8 @@
 presets:
-  - name: "rest-api-clean"
-    source:
-      repo: "https://github.com/Sch39/gobrain-presets.git"
-      path: "rest-api-clean"
+  # - name: "rest-api-clean"
+  #   source:
+  #     repo: "https://github.com/Sch39/gobrain-presets.git"
+  #     path: "rest-api-clean"
 
   - name: "minimal"
     source:
