@@ -29,7 +29,7 @@ GoBrain adalah CLI berfokus pada proyek (project-scoped) untuk ekosistem Go. Tuj
 go build -trimpath -o bin/gob ./cmd/gob
 # Windows akan menghasilkan bin/gob.exe
 ```
-  
+
 - Build dengan Makefile:
   
 ```bash
