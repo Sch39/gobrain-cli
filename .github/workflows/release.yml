@@ -58,7 +58,7 @@ jobs:
           CGO_ENABLED=0 \
           GOOS=${{ matrix.goos }} \
           GOARCH=${{ matrix.goarch }} \
-          go build -trimpath -ldflags "-s -w" \
+          go build -trimpath -ldflags "-s -w -X main.appVersion=${{ github.ref_name }}" \
             -o dist/gob${EXT} \
             ./cmd/gob
 

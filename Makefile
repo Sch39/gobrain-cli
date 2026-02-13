@@ -17,6 +17,7 @@ SANDBOX_DIR := sandbox
 
 GO := go
 GOFLAGS := -trimpath
+VERSION ?= dev
 
 # -------------------------
 # Default
@@ -74,7 +75,7 @@ release:
 	@mkdir -p $(BIN_DIR)
 	CGO_ENABLED=0 $(GO) build \
 		$(GOFLAGS) \
-		-ldflags "-s -w" \
+		-ldflags "-s -w -X main.appVersion=$(VERSION)" \
 		-o $(BIN_PATH) \
 		$(CMD_PATH)
 	@echo "Release binary at $(BIN_PATH)"

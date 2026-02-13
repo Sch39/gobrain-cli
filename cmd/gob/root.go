@@ -16,6 +16,10 @@ var rootCmd = &cobra.Command{
 	Use:   "gob",
 	Short: "Gobrain CLI Tool - Project-scoped Go development CLI",
 	Long:  "GoBrain is an project-scoped Go development CLI. It provides a set of tools to help you develop Go projects in a project-scoped environment.",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		printVersionUI()
+		return cmd.Help()
+	},
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		root, _ := os.Getwd()
 		if r, err := project.Find(root); err == nil {
@@ -57,6 +61,7 @@ func Execute() {
 	rootCmd.AddCommand(NewScriptsCommand())
 	rootCmd.AddCommand(NewToolsCommand())
 	rootCmd.AddCommand(NewVerifyCommand())
+	rootCmd.AddCommand(NewVersionCommand())
 
 	// Execute the root command
 	err := rootCmd.Execute()
