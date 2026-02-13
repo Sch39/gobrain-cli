@@ -171,6 +171,7 @@ Penjelasan singkat:
   
 ## Preset Template
 - Preset bawaan di-embed: lihat `internal/presets/presets.yaml` (berisi preset default dari repo [**gobrain-presets**](https://github.com/Sch39/gobrain-presets) atau **https://github.com/Sch39/gobrain-presets**). Anda bisa menyediakan file preset khusus via ENV `GOB_PRESET_FILE`.
+- Selain ENV `GOB_PRESET_FILE`, gob juga otomatis mendeteksi preset dari file lokal di direktori kerja bila tersedia: `presets.yaml`, `presets.yml`, `.presets/presets.yml`, atau `.presets/presets.yaml` (lihat [presets.go:L68-75](/internal/presets/presets.go#L68-L75)).
 - `source-type: preset` akan menampilkan daftar preset, lalu meng-clone/menyalin isi sesuai `repo` dan `path`.
   
 ## Keamanan & Token Git
