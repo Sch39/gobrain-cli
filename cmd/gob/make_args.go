@@ -101,9 +101,6 @@ func toPascalCase(s string) string {
 	if len(words) == 0 {
 		return ""
 	}
-	if len(words) == 1 && isAllLower(words[0]) && words[0] == s {
-		return s
-	}
 	var b strings.Builder
 	for _, w := range words {
 		if w == "" {
