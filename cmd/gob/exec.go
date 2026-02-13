@@ -1,4 +1,4 @@
-package gob
+package main
 
 import (
 	"context"
@@ -12,8 +12,8 @@ import (
 
 func NewExecCommand() *cobra.Command {
 	execCmd := &cobra.Command{
-		Use:               "exec [command] [args...]",
-		Short:             "Execute a command with project-scoped env",
+		Use:                "exec [command] [args...]",
+		Short:              "Execute a command with project-scoped env",
 		DisableFlagParsing: true,
 		SilenceUsage:       true,
 		RunE: func(cmd *cobra.Command, args []string) error {

@@ -1,4 +1,4 @@
-module github.com/Sch39/gobrain-cli
+module github.com/sch39/gobrain-cli
 
 go 1.24.2
 

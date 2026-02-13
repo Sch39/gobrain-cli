@@ -33,7 +33,7 @@ Semua paket tersedia di [**Release Page**](https://github.com/Sch39/gobrain-cli-
 
 ### Instalasi via go install
 ```bash
-go install github.com/sch39/gobrain-cli@latest
+go install github.com/sch39/gobrain-cli/cmd/gob@latest
 ```
 
 Pastikan `GOBIN` atau `$GOPATH/bin` ada di PATH agar perintah `gob` bisa dijalankan.
@@ -42,12 +42,12 @@ Pastikan `GOBIN` atau `$GOPATH/bin` ada di PATH agar perintah `gob` bisa dijalan
 #### macOS / Linux
   
 ```bash
-go build -trimpath -o bin/gob .
+go build -trimpath -o bin/gob ./cmd/gob
 ```
   
 #### Windows (PowerShell)
 ```powershell
-go build -trimpath -o bin\gob.exe .
+go build -trimpath -o bin\gob.exe .\cmd\gob
 ```
   
 ### Build dengan Makefile
