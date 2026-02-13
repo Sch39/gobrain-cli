@@ -8,7 +8,7 @@ import (
 	"github.com/sch39/gobrain-cli/internal/ui"
 )
 
-var appVersion = "v0.3.0"
+var appVersion = "dev"
 
 const appDescription = "Project-scoped Go development CLI"
 
