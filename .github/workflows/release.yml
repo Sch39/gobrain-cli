@@ -60,7 +60,7 @@ jobs:
           GOARCH=${{ matrix.goarch }} \
           go build -trimpath -ldflags "-s -w" \
             -o dist/gob${EXT} \
-            ./cmd/gob
+            .
 
       # -------------------------
       # TEST

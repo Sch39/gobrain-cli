@@ -1,5 +1,5 @@
-package main
+package gob
 
-func main() {
+func Main() {
 	Execute()
 }

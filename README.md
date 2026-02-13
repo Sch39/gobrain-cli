@@ -31,16 +31,23 @@ GoBrain adalah CLI berfokus pada proyek (project-scoped) untuk ekosistem Go. Tuj
   
 Semua paket tersedia di [**Release Page**](https://github.com/Sch39/gobrain-cli-tool/releases).
 
+### Instalasi via go install
+```bash
+go install github.com/sch39/gobrain-cli@latest
+```
+
+Pastikan `GOBIN` atau `$GOPATH/bin` ada di PATH agar perintah `gob` bisa dijalankan.
+
 ### Build Lokal
 #### macOS / Linux
   
 ```bash
-go build -trimpath -o bin/gob ./cmd/gob
+go build -trimpath -o bin/gob .
 ```
   
 #### Windows (PowerShell)
 ```powershell
-go build -trimpath -o bin\gob.exe .\cmd\gob
+go build -trimpath -o bin\gob.exe .
 ```
   
 ### Build dengan Makefile

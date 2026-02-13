@@ -3,7 +3,7 @@
 # =========================
 
 APP_NAME := gob
-CMD_PATH := ./cmd/gob
+CMD_PATH := .
 BIN_DIR  := bin
 
 # OS-aware binary name (adds .exe on Windows)
